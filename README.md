@@ -220,13 +220,6 @@ This project is open source and available under the MIT License.
 - **Matplotlib**: Data visualization
 - **IMDB Dataset**: Training data
 
-## 📞 Support
-
-For issues and questions:
-- Create an issue in the repository
-- Check the troubleshooting section
-- Review the code comments for implementation details
-
 ---
 
 **Happy Analyzing! 🎬✨**
