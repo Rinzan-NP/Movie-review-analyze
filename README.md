@@ -31,10 +31,8 @@ A comprehensive machine learning web application that analyzes the sentiment of 
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd sarvana-project
+Download The Repo
+
    ```
 
 2. **Install dependencies**
