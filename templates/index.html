@@ -407,7 +407,7 @@
         </p>
         <div class="mt-4 fade-in">
           <span class="badge bg-light text-dark me-2 badge-custom">
-            <i class="bi bi-cpu me-1"></i>4 ML Models
+            <i class="bi bi-cpu me-1"></i>3 ML Models
           </span>
           <span class="badge bg-light text-dark me-2 badge-custom">
             <i class="bi bi-graph-up me-1"></i>Real-time Analysis
@@ -435,8 +435,8 @@
             <label class="form-label fw-semibold text-dark mb-3">
               <i class="bi bi-gear me-2"></i>Choose Analysis Method:
             </label>
-            <div class="row g-3">
-              <div class="col-lg-3 col-md-6">
+            <div class="row g-3 justify-content-center">
+              <div class="col-lg-4 col-md-6">
                 <div class="method-card" onclick="selectMethod('logistic')" id="method-logistic">
                   <input type="radio" name="method" value="logistic" id="logistic" checked style="display: none;">
                   <i class="bi bi-graph-up method-icon text-primary"></i>
@@ -444,7 +444,7 @@
                   <p class="method-description mb-0">Fast and interpretable linear model</p>
                 </div>
               </div>
-              <div class="col-lg-3 col-md-6">
+              <div class="col-lg-4 col-md-6">
                 <div class="method-card" onclick="selectMethod('naive_bayes')" id="method-naive_bayes">
                   <input type="radio" name="method" value="naive_bayes" id="naive_bayes" style="display: none;">
                   <i class="bi bi-diagram-3 method-icon text-info"></i>
@@ -452,15 +452,7 @@
                   <p class="method-description mb-0">Probabilistic classifier with strong assumptions</p>
                 </div>
               </div>
-              <div class="col-lg-3 col-md-6">
-                <div class="method-card" onclick="selectMethod('bagging')" id="method-bagging">
-                  <input type="radio" name="method" value="bagging" id="bagging" style="display: none;">
-                  <i class="bi bi-collection method-icon text-warning"></i>
-                  <h5 class="fw-bold mb-2">Bagging Ensemble</h5>
-                  <p class="method-description mb-0">Bootstrap aggregating for improved accuracy</p>
-                </div>
-              </div>
-              <div class="col-lg-3 col-md-6">
+              <div class="col-lg-4 col-md-6">
                 <div class="method-card" onclick="selectMethod('voting')" id="method-voting">
                   <input type="radio" name="method" value="voting" id="voting" style="display: none;">
                   <i class="bi bi-people method-icon text-success"></i>
@@ -637,18 +629,6 @@
         <div class="col-lg-6">
           <div class="chart-card fade-in">
             <h3 class="h5 fw-bold text-dark mb-3">
-              <i class="bi bi-collection me-2 text-warning"></i>Bagging Ensemble ROC Curve
-            </h3>
-            <p class="text-muted small mb-3">
-              The Bagging ensemble method combines multiple models to improve performance. 
-              This ROC curve shows how the ensemble approach affects model performance.
-            </p>
-            <img src="/static/roc_bagging.png" class="chart-image" alt="Bagging ROC Curve">
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="chart-card fade-in">
-            <h3 class="h5 fw-bold text-dark mb-3">
               <i class="bi bi-people me-2 text-success"></i>Voting Classifier ROC Curve
             </h3>
             <p class="text-muted small mb-3">
@@ -675,25 +655,19 @@
               <i class="bi bi-check-circle me-2 text-success"></i>Accuracy Scores
             </h3>
             <div class="row g-3">
-              <div class="col-6">
+              <div class="col-4">
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                   <span class="fw-semibold">Logistic:</span>
                   <span class="metric-value" id="lr-accuracy">Loading...</span>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                   <span class="fw-semibold">Naive Bayes:</span>
                   <span class="metric-value" id="nb-accuracy">Loading...</span>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
-                  <span class="fw-semibold">Bagging:</span>
-                  <span class="metric-value" id="bagging-accuracy">Loading...</span>
-                </div>
-              </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                   <span class="fw-semibold">Voting:</span>
                   <span class="metric-value" id="voting-accuracy">Loading...</span>
@@ -708,25 +682,19 @@
               <i class="bi bi-graph-up me-2 text-info"></i>AUC Scores
             </h3>
             <div class="row g-3">
-              <div class="col-6">
+              <div class="col-4">
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                   <span class="fw-semibold">Logistic:</span>
                   <span class="metric-value" id="lr-auc">Loading...</span>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                   <span class="fw-semibold">Naive Bayes:</span>
                   <span class="metric-value" id="nb-auc">Loading...</span>
                 </div>
               </div>
-              <div class="col-6">
-                <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
-                  <span class="fw-semibold">Bagging:</span>
-                  <span class="metric-value" id="bagging-auc">Loading...</span>
-                </div>
-              </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-3">
                   <span class="fw-semibold">Voting:</span>
                   <span class="metric-value" id="voting-auc">Loading...</span>
@@ -743,7 +711,7 @@
           <i class="bi bi-file-text me-2"></i>Detailed Classification Reports
         </h3>
         <div class="row g-4">
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-4 col-md-6">
             <div class="report-card fade-in">
               <h4 class="h6 fw-bold text-dark mb-3 text-center">
                 <i class="bi bi-graph-up me-2 text-primary"></i>Logistic Regression
@@ -751,7 +719,7 @@
               <div class="report-content" id="lr-report">Loading...</div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-4 col-md-6">
             <div class="report-card fade-in">
               <h4 class="h6 fw-bold text-dark mb-3 text-center">
                 <i class="bi bi-diagram-3 me-2 text-info"></i>Naive Bayes
@@ -759,15 +727,7 @@
               <div class="report-content" id="nb-report">Loading...</div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="report-card fade-in">
-              <h4 class="h6 fw-bold text-dark mb-3 text-center">
-                <i class="bi bi-collection me-2 text-warning"></i>Bagging
-              </h4>
-              <div class="report-content" id="bagging-report">Loading...</div>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
+          <div class="col-lg-4 col-md-6">
             <div class="report-card fade-in">
               <h4 class="h6 fw-bold text-dark mb-3 text-center">
                 <i class="bi bi-people me-2 text-success"></i>Voting Classifier
@@ -918,19 +878,16 @@
         // Update accuracy scores
         document.getElementById('lr-accuracy').textContent = (data.accuracies.Logistic * 100).toFixed(2) + '%';
         document.getElementById('nb-accuracy').textContent = (data.accuracies['Naive Bayes'] * 100).toFixed(2) + '%';
-        document.getElementById('bagging-accuracy').textContent = (data.accuracies.Bagging * 100).toFixed(2) + '%';
         document.getElementById('voting-accuracy').textContent = (data.accuracies.Voting * 100).toFixed(2) + '%';
         
         // Update AUC scores
         document.getElementById('lr-auc').textContent = data.auc_scores.Logistic.toFixed(3);
         document.getElementById('nb-auc').textContent = data.auc_scores['Naive Bayes'].toFixed(3);
-        document.getElementById('bagging-auc').textContent = data.auc_scores.Bagging.toFixed(3);
         document.getElementById('voting-auc').textContent = data.auc_scores.Voting.toFixed(3);
         
         // Update classification reports
         updateClassificationReport('lr-report', data.classification_reports.Logistic);
         updateClassificationReport('nb-report', data.classification_reports['Naive Bayes']);
-        updateClassificationReport('bagging-report', data.classification_reports.Bagging);
         updateClassificationReport('voting-report', data.classification_reports.Voting);
         
       } catch (error) {

@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.ensemble import BaggingClassifier, VotingClassifier
+from sklearn.ensemble import VotingClassifier
 from sklearn.metrics import accuracy_score, classification_report, roc_curve, auc
 import matplotlib.pyplot as plt
 from nltk.corpus import stopwords
@@ -42,15 +42,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 lr = LogisticRegression(max_iter=1000).fit(X_train, y_train)
 nb = MultinomialNB().fit(X_train, y_train)
-bagging = BaggingClassifier(estimator=LogisticRegression(max_iter=1000),
-                            n_estimators=25, bootstrap=True, random_state=42).fit(X_train, y_train)
 
 # Voting Classifier (Ensemble)
 voting = VotingClassifier(
     estimators=[
         ('lr', LogisticRegression(max_iter=1000)),
-        ('nb', MultinomialNB()),
-        ('bagging', BaggingClassifier(estimator=LogisticRegression(max_iter=1000), n_estimators=10, bootstrap=True, random_state=42))
+        ('nb', MultinomialNB())
     ],
     voting='soft'
 ).fit(X_train, y_train)
@@ -60,11 +57,10 @@ os.makedirs("models", exist_ok=True)
 joblib.dump(vectorizer, "models/tfidf.pkl")
 joblib.dump(lr, "models/lr.pkl")
 joblib.dump(nb, "models/nb.pkl")
-joblib.dump(bagging, "models/bagging.pkl")
 joblib.dump(voting, "models/voting.pkl")
 
 # ----------- Plot Graphs -----------
-models = {"Logistic": lr, "Naive Bayes": nb, "Bagging": bagging, "Voting": voting}
+models = {"Logistic": lr, "Naive Bayes": nb, "Voting": voting}
 accuracies = {}
 classification_reports = {}
 auc_scores = {}
@@ -126,7 +122,7 @@ with open("models/metrics.json", "w") as f:
 # 1. Accuracy Comparison Bar Chart
 plt.figure(figsize=(10, 6))
 bars = plt.bar(accuracies.keys(), accuracies.values(), 
-               color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'])
+               color=['#FF6B6B', '#4ECDC4', '#96CEB4'])
 plt.ylim(0, 1)
 plt.title("Model Accuracy Comparison", fontsize=16, fontweight='bold')
 plt.ylabel("Accuracy", fontsize=12)
@@ -143,7 +139,7 @@ plt.close()
 # 2. AUC Scores Comparison
 plt.figure(figsize=(10, 6))
 bars = plt.bar(auc_scores.keys(), auc_scores.values(),
-               color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'])
+               color=['#FF6B6B', '#4ECDC4', '#96CEB4'])
 plt.ylim(0, 1)
 plt.title("Model AUC Scores Comparison", fontsize=16, fontweight='bold')
 plt.ylabel("AUC Score", fontsize=12)
@@ -162,7 +158,7 @@ fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(18, 6))
 
 # Precision
 bars1 = ax1.bar(precision_scores.keys(), precision_scores.values(),
-                color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'])
+                color=['#FF6B6B', '#4ECDC4', '#96CEB4'])
 ax1.set_title("Precision Comparison", fontsize=14, fontweight='bold')
 ax1.set_ylabel("Precision", fontsize=12)
 ax1.set_ylim(0, 1)
@@ -173,7 +169,7 @@ for i, (name, val) in enumerate(precision_scores.items()):
 
 # Recall
 bars2 = ax2.bar(recall_scores.keys(), recall_scores.values(),
-                color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'])
+                color=['#FF6B6B', '#4ECDC4', '#96CEB4'])
 ax2.set_title("Recall Comparison", fontsize=14, fontweight='bold')
 ax2.set_ylabel("Recall", fontsize=12)
 ax2.set_ylim(0, 1)
@@ -184,7 +180,7 @@ for i, (name, val) in enumerate(recall_scores.items()):
 
 # F1-Score
 bars3 = ax3.bar(f1_scores.keys(), f1_scores.values(),
-                color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4'])
+                color=['#FF6B6B', '#4ECDC4', '#96CEB4'])
 ax3.set_title("F1-Score Comparison", fontsize=14, fontweight='bold')
 ax3.set_ylabel("F1-Score", fontsize=12)
 ax3.set_ylim(0, 1)
@@ -204,7 +200,7 @@ fig, ax = plt.subplots(figsize=(10, 10), subplot_kw=dict(projection='polar'))
 # Metrics for radar chart
 metrics = ['Accuracy', 'AUC', 'Precision', 'Recall', 'F1-Score']
 model_names = list(accuracies.keys())
-colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4']
+colors = ['#FF6B6B', '#4ECDC4', '#96CEB4']
 
 # Calculate angles for each metric
 angles = [n / float(len(metrics)) * 2 * pi for n in range(len(metrics))]
@@ -235,7 +231,7 @@ plt.close()
 
 # 5. All ROC Curves on One Plot
 plt.figure(figsize=(10, 8))
-colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4']
+colors = ['#FF6B6B', '#4ECDC4', '#96CEB4']
 for i, (name, model) in enumerate(models.items()):
     y_prob = model.predict_proba(X_test)[:, 1]
     fpr, tpr, _ = roc_curve(y_test, y_prob)
@@ -274,7 +270,6 @@ def create_app():
     models_loaded = {
         "logistic": joblib.load("models/lr.pkl"),
         "naive_bayes": joblib.load("models/nb.pkl"),
-        "bagging": joblib.load("models/bagging.pkl"),
         "voting": joblib.load("models/voting.pkl")
     }
 
